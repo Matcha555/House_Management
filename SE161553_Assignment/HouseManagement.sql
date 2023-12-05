@@ -1,0 +1,43 @@
+CREATE DATABASE HouseManagement
+GO
+
+USE HouseManagement
+GO
+
+CREATE TABLE dbo.users(
+userID NVARCHAR(100) NOT NULL,
+userName NVARCHAR(100) NOT NULL,
+password NVARCHAR(100) NOT NULL,
+roleID NVARCHAR(100) NOT NULL,
+CONSTRAINT pk_HOUSE PRIMARY KEY(userID)
+)
+
+CREATE TABLE dbo.product(
+productID NVARCHAR(100) NOT NULL,
+productName NVARCHAR(100) NOT NULL,
+productQuantity INT NOT NULL,
+producPrice FLOAT NOT NULL,
+CONSTRAINT pk_product PRIMARY KEY(productID)
+)
+
+CREATE TABLE dbo.orderPro(
+orderID NVARCHAR(100) NOT NULL,
+userID NVARCHAR(100) NOT NULL,
+date DATETIME NOT NULL,
+total FLOAT NOT NULL,
+CONSTRAINT pk_order PRIMARY KEY(orderID)
+)
+
+CREATE TABLE dbo.orderDetail(
+orderDetailID NVARCHAR(100) NOT NULL,
+orderID NVARCHAR(100) NOT NULL,
+productID NVARCHAR(100) NOT NULL,
+quantity INT NOT NULL,
+price FLOAT NOT NULL,
+CONSTRAINT pk_orderDetail PRIMARY KEY(orderDetailID),
+
+CONSTRAINT fk_order_orderDetail FOREIGN KEY(orderID) REFERENCES dbo.orderPro(orderID),
+CONSTRAINT fk_product_orderDetail FOREIGN KEY(productID) REFERENCES dbo.product(productID)
+)
+
+
